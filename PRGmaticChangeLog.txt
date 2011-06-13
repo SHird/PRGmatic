@@ -1,0 +1,18 @@
+PRGmatic Change Log
+
+v1.4
+31 May 2011
+PRGmatic.pl updated such that it now outputs a "dataset.settings.txt" file to record what the user set the parameter values to for a given run
+
+v1.3 
+18 April 2011
+Read me file updated
+GNU Public License added to PRGmatic.pl, setup.pl and BigFastaRename.pl
+
+v1.2
+17 January 2010
+Small error in calling insertions fixed
+
+v1.1
+10 January 2010
+Various typographical errors fixed in PRGmatic.pl script
