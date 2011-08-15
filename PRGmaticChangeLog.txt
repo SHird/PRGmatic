@@ -1,5 +1,15 @@
 PRGmatic Change Log
 
+v1.6
+15 August 2011
+Reformatted the way muscle aligned loci are saved: instead of "_aln.fasta" files now end with ".aln.fasta". The loci in the PRG have also been reformatted such that the last piece of information in the locus name is now the dataset nickname_locusNumber, instead of just the locus number. Example: old locus name/header = ">gi|321|fakeDataset|1"
+new locus name/header = "">gi|321|fakeDataset|fakeDataset_1"
+These changes make PRGmatic more compatible with lociNGS (which views the data and is available here: https://github.com/SHird/lociNGS )
+
+v1.5
+26 June 2011
+Added a new user-set parameter to PRGmatic.pl. This allows the user to set the minimum sequence overlap necessary for clustering reads into alleles and into loci. The recommended default is 100 for reads longer than 150 base pairs (i.e., Roche 454 data) and 50 for reads ~100 base pairs (i.e., Illumina data).  * THE EFFECT THIS PARAMETER HAS ON OUTPUT (THE FINAL READS) HAS NOT BEEN THOROUGHLY EVALUATED. I BELIEVE THE NUMBER SHOULD BE REASONABLY HIGH, COMPARED TO THE READ LENGTHS, IN ORDER TO STOP CAP3 FROM MAKING LONG CONTIGS, WHICH WOULD BE AN ERRONEOUS BIOLOGICAL SIGNAL - BUT I HAVE NOT SYSTEMATICALLY TESTED IT. PLEASE FEEL FREE TO EMAIL ME WITH THOUGHTS/SUGGESTIONS, I'LL TRY TO TEST IT OUT "SOON". 
+
 v1.4
 31 May 2011
 PRGmatic.pl updated such that it now outputs a "dataset.settings.txt" file to record what the user set the parameter values to for a given run
