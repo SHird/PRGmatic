@@ -1,8 +1,8 @@
 #!/usr/bin/perl 
 use strict;
 use warnings;
-#S.Hird 09/15/2010
-#PRGmatic v 1.4 
+#S.Hird 08/08/2011
+#PRGmatic.v1.6
 
 
 #PRGmatic: an efficient pipeline for collating NGS data
@@ -29,20 +29,23 @@ chomp $dataset;
 open SETTINGS, ">", "$dataset.settings.txt" or die $!;
 
 print "############################################\nPARAMETER SETTINGS (default in parentheses):\n############################################\n";
+print SETTINGS "############################################\nPARAMETER SETTINGS (default in parentheses):\n############################################\n";
+
 print "Minimum number of reads to call high confidence alleles (5) : ";
 $params[0] = <STDIN>;
-
-print SETTINGS "############################################\nPARAMETER SETTINGS (default in parentheses):\n############################################\n";
 print SETTINGS "Minimum number of reads to call high confidence alleles (5) : $params[0]";
 
 print "Minimum % identity to call a locus (90): ";
 $params[1] = <STDIN>;
 print SETTINGS "Minimum % identity to call a locus (90): $params[1]";
 
+print "Minimum overlapping sequence to cluster reads into alleles or loci (100 for 454 data, 50 for Illumina): ";
+$params[5] = <STDIN>;
+print SETTINGS "Minimum overlapping sequence to cluster reads into alleles or loci (100 for 454 data, 50 for Illumina): $params[5]";
+
 print "Minimum coverage for calling consensus sequence in individual (6): ";
 $params[2] = <STDIN>;
 print SETTINGS "Minimum coverage for calling consensus sequence in individual (6): $params[2]";
-
 
 print "Minimum coverage for calling a SNP (3): ";
 $params[3] = <STDIN>;
@@ -54,9 +57,9 @@ print SETTINGS "Minimum % of reads for calling SNP (20): $params[4]";
 
 chomp @params;
 
-foreach (@params){
-	print "$_ \n";
-	}
+#foreach (@params){
+#	print "$_ \n";
+#	}
 
 
 ####read in fasta files
@@ -110,7 +113,7 @@ my @goodContigNames;
 
 foreach (@namesFasta){
 		my $current = $_;
-		system"./cap3 inputFASTA/$current -p 99 -o 100 -z 5 -c 20";
+		system"./cap3 inputFASTA/$current -p 99 -o $params[5] -z 5 -c 20";
 }#close foreach
 
 my @contigArray;
@@ -225,9 +228,9 @@ for (my $i = 0; $i<=$#goodContigNames; $i++){
 	print Q_OUT ">$goodContigNames[$i]\n";
 	print Q_OUT $qualHash{">$goodContigNames[$i]"}, "\n";
 }
-print "cap3 $totalFasta p $params[1] -o 100 -z 5 -c 20\n";
+print "cap3 $totalFasta p $params[1] -o $params[5] -z 5 -c 20\n";
 
-system"./cap3 $totalFasta -p $params[1] -o 100 -z 5 -c 20";
+system"./cap3 $totalFasta -p $params[1] -o $params[5] -z 5 -c 20";
 
 } #close cap3Execute
 
@@ -272,7 +275,7 @@ my $length = ((length $fastaArray[$j+1])-1);
 if ($j % 2 != 0) {
 
 my $locusNumber = (($j + 1)/2);
-$fastaArray[$j] = ">gi|$length|$dataset|$locusNumber\n";
+$fastaArray[$j] = ">gi|$length|$dataset|$dataset"."_$locusNumber\n";
 }
 }
 shift @fastaArray;
@@ -488,8 +491,15 @@ foreach my $nameForWrite (@names){
 	}#close while
 	close PTABLE;
 
+my $chromoNumber;
+
 print $PTableAoA[0][0];
 for my $i (1..$#PTableAoA) {
+$chromoNumber = $PTableAoA[$i][0];
+$chromoNumber =~ s/$dataset//;
+$chromoNumber =~ s/_//;
+print "this is chromoNumber $chromoNumber\n\n\n\n\n\n\n";
+#	$outputPrefix =~ s/.fasta//;
 print "num rows $#PTableAoA\n";
 	if ($PTableAoA[$i][11]>=$params[2]){
 	
@@ -510,28 +520,28 @@ print "num rows $#PTableAoA\n";
 	#	if ( ($PTableAoA[$i][3] > $params[3]) && (($PTableAoA[$i][3]/$PTableAoA[$i][11]) >= $params[4]) ) {  #consensus base in more than cutoff reads
 			
 			if ($PTableAoA[$i][3] == $PTableAoA[$i][11]){ #if there is NO discrepencies, just call both alleles
-				$firstAllele[($PTableAoA[$i][0])][($PTableAoA[$i][1])] = "$PTableAoA[$i][2]";
+				$firstAllele[$chromoNumber][($PTableAoA[$i][1])] = "$PTableAoA[$i][2]";
 				print "$PTableAoA[$i][0] $PTableAoA[$i][1] is $PTableAoA[$i][2] \n";
-				$secondAllele[($PTableAoA[$i][0])][($PTableAoA[$i][1])] = "$PTableAoA[$i][2]";
+				$secondAllele[$chromoNumber][($PTableAoA[$i][1])] = "$PTableAoA[$i][2]";
 			}
 				
 			else {
 				print "ELSE! 0 $PTableAoA[$i][0] , 1 $PTableAoA[$i][1] , 3 $PTableAoA[$i][3]\n";
 				if ( ($PTableAoA[$i][3] >= $params[3]) && (($PTableAoA[$i][3]/$PTableAoA[$i][11]) >= ($params[4]/100)) ) {				
-					$firstAllele[($PTableAoA[$i][0])][($PTableAoA[$i][1])] = "$PTableAoA[$i][2]";  #subject to change
+					$firstAllele[$chromoNumber][($PTableAoA[$i][1])] = "$PTableAoA[$i][2]";  #subject to change
 					print 	"firstAllele $PTableAoA[$i][0] ($PTableAoA[$i][1]) = $PTableAoA[$i][2] \n";  #subject to change
-					$secondAllele[($PTableAoA[$i][0])][($PTableAoA[$i][1])] = "$PTableAoA[$i][2]";  #subject to change			
+					$secondAllele[$chromoNumber][($PTableAoA[$i][1])] = "$PTableAoA[$i][2]";  #subject to change			
 					for my $j (4..8) {
 						print "$PTableAoA[$i][$j] \n";
 						if ( ($PTableAoA[$i][$j] >= $params[3]) && (($PTableAoA[$i][$j]/$PTableAoA[$i][11]) >= ($params[4]/100) ) ) {
 							
 							if ( ($PTableAoA[$i][$j] <= $PTableAoA[$i][3]) ){
-								$secondAllele[($PTableAoA[$i][0])][($PTableAoA[$i][1])] = "$PTableAoA[0][$j]";
+								$secondAllele[$chromoNumber][($PTableAoA[$i][1])] = "$PTableAoA[0][$j]";
 								print "ELSE1 secondAllele $PTableAoA[$i][0] $PTableAoA[$i][1] = $PTableAoA[0][$j]\n";
 
 							} #if
 							else { 
-								$firstAllele[($PTableAoA[$i][0])][($PTableAoA[$i][1])] = "$PTableAoA[0][$j]";
+								$firstAllele[$chromoNumber][($PTableAoA[$i][1])] = "$PTableAoA[0][$j]";
 								print "ELSE2 firstAllele $PTableAoA[$i][0] ($PTableAoA[$i][1]) = $PTableAoA[0][$j]\n";
 
 
@@ -545,25 +555,25 @@ print "num rows $#PTableAoA\n";
 					for my $j (3..8) {
 						if ( ($PTableAoA[$i][$j] >= $params[3]) && (($PTableAoA[$i][$j]/$PTableAoA[$i][11]) >= ($params[4]/100) ) ) {
 							if ( ($PTableAoA[$i][$j]/$PTableAoA[$i][11]) >= 0.5) {
-								$firstAllele[($PTableAoA[$i][0])][($PTableAoA[$i][1])] = "$PTableAoA[0][$j]";
-								$secondAllele[($PTableAoA[$i][0])][($PTableAoA[$i][1])] = "$PTableAoA[0][$j]";
+								$firstAllele[$chromoNumber][($PTableAoA[$i][1])] = "$PTableAoA[0][$j]";
+								$secondAllele[$chromoNumber][($PTableAoA[$i][1])] = "$PTableAoA[0][$j]";
 								print "they were fewer . called first and second $PTableAoA[0][$j]\n";
 								next;
 							}
 							else {
 								if ($j == 3){
-									$secondAllele[($PTableAoA[$i][0])][($PTableAoA[$i][1])] = "$PTableAoA[$i][2]";  #subject to change
+									$secondAllele[$chromoNumber][($PTableAoA[$i][1])] = "$PTableAoA[$i][2]";  #subject to change
 									print "Called second $PTableAoA[$i][2]\n";
 								}
 								else{
-									$secondAllele[($PTableAoA[$i][0])][($PTableAoA[$i][1])] = "$PTableAoA[0][$j]";
+									$secondAllele[$chromoNumber][($PTableAoA[$i][1])] = "$PTableAoA[0][$j]";
 									print "Called second $PTableAoA[0][$j]\n";
 								}							
 							}#close else
 						}#close if
 						elsif ( ($PTableAoA[$i][3] < $params[3]) && ($PTableAoA[$i][4] < $params[3]) && ($PTableAoA[$i][5] < $params[3]) && ($PTableAoA[$i][6]< $params[3]) && ($PTableAoA[$i][7] < $params[3]) && ($PTableAoA[$i][8] < $params[3]) ) {
-							$firstAllele[($PTableAoA[$i][0])][($PTableAoA[$i][1])] = "N";
-							$secondAllele[($PTableAoA[$i][0])][($PTableAoA[$i][1])] = "N";
+							$firstAllele[$chromoNumber][($PTableAoA[$i][1])] = "N";
+							$secondAllele[$chromoNumber][($PTableAoA[$i][1])] = "N";
 							print "not enough coverage anywhere. both strands called N \n";
 						}#close elsif
 					}#close for	
@@ -881,7 +891,7 @@ foreach my $f (@allFilesCA){
 	if ( ($f ne ".") && ($f ne "..") && ($f !~ /^\.DS_Store/i) && ($f !~ /^clustalw/) ){
 	print "$f\t";
 	my $nameOut = $f;
-	$nameOut =~ s/.fasta/_aln.fasta/;
+	$nameOut =~ s/.fasta/.aln.fasta/;
 	print "$nameOut \n";
 	system"./muscle3.8.31_i86darwin64 -in calledAlleles/$f -out calledAlleles/alignedLoci/$nameOut";
 }
