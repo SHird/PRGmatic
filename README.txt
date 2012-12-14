@@ -84,7 +84,7 @@ In the PRGMATIC folder you should now have 10 things:
 Inside the inputFASTA folder you should place your tag separated fasta files. 
 
 6. (MY PREFERRED METHOD FOR) GENERATING FASTA FILES USING RDP WEBSITE
-Off the 454 machine, you should have gotten at least one .fna file, one .qual file and a folder of .sff files.  To quality control the reads, I use the Ribosomal Database Project�s Pyrosequencing Pipeline (at http://pyro.cme.msu.edu/ ). Their �Pipeline Initial Process� is easy to use, fast and on its own server, so there�s nothing to download. 
+Off the 454 machine, you should have gotten at least one .fna file, one .qual file and a folder of .sff files.  To quality control the reads, I use the Ribosomal Database Project's Pyrosequencing Pipeline (at http://pyro.cme.msu.edu/ ). Their Pipeline Initial Process is easy to use, fast and on its own server, so there�s nothing to download. 
 
 RDP Pyrosequencing Pipeline Initial Process Parameters:
 Sequence file in FASTA format: (upload the .fna file here)
@@ -107,51 +107,51 @@ This is generally very fast and I have my file downloading within 10 minutes (us
 7. TO RUN BIGFASTARENAME.PL:
 1. Copy or drag the file into the RDP downloaded folder. 
 2. Open a terminal window and cd into this folder. 
-3. Type �chmod 755 bigFastaRename.pl� to give yourself permission to run the script. 
-4. Type �./bigFastaRename.pl�. 
-5. You should see the prompt �Drag tagfile here:� on the screen. Drag and drop the tagfile there (it doesn�t need to be in the same folder as everything else) and the script should run through all the folders in the tagfile, outputting a .fasta and a .qual file for each one. IF THIS DOES NOT HAPPEN � check the line breaks on your tag file. They should be Unix or the script will just read the first line of the tagfile and quit.
-6. Copy or drag these files into the �inputFASTA� folder in the PRGMATIC folder. You�re ready to go!
-*****If the script runs for the first individual but stops after that, the line breaks in the tag file need to be changed to UNIX. The program is reading the first line then hitting a hard return it doesn�t understand and stopping. Changing the line breaks will fix this. *****
+3. Type "chmod 755 bigFastaRename.pl" to give yourself permission to run the script. 
+4. Type "./bigFastaRename.pl".
+5. You should see the prompt "Drag tagfile here:" on the screen. Drag and drop the tagfile there (it does not need to be in the same folder as everything else) and the script should run through all the folders in the tagfile, outputting a .fasta and a .qual file for each one. IF THIS DOES NOT HAPPEN check the line breaks on your tag file. They should be Unix or the script will just read the first line of the tagfile and quit.
+6. Copy or drag these files into the inputFASTA folder in the PRGMATIC folder. You are ready to go!
+*****If the script runs for the first individual but stops after that, the line breaks in the tag file need to be changed to UNIX. The program is reading the first line then hitting a hard return it does not understand and stopping. Changing the line breaks will fix this. *****
 
 8. TO RUN PRGMATIC:
-Make sure your individual .fasta files are in the inputFASTA folder (quality files are optional, but should be in this folder if you have them). Also, the quality files need to be of the �same name� as the .fasta file they�re associated with (e.g. IND01.fasta should have a quality file named IND01.qual � this is a requirement of cap3).
+Make sure your individual .fasta files are in the inputFASTA folder (quality files are optional, but should be in this folder if you have them). Also, the quality files need to be of the SAME NAME as the .fasta file they are associated with (e.g. IND01.fasta should have a quality file named IND01.qual; this is a requirement of cap3).
 Make sure you have the 11 things listed above in working order in the PRGMATIC folder. 
-Open a terminal window. cd to the PRGMATIC folder. Type �chmod 755 PRGMATIC.pl� to give yourself permission to run the script. Type �./PRGMATIC.pl� to run the script.
+Open a terminal window. cd to the PRGMATIC folder. Type "chmod 755 PRGMATIC.pl" to give yourself permission to run the script. Type "./PRGMATIC.pl" to run the script.
 
 9. INPUT PARAMETERS:
-When the program runs, you�ll see a variety of prompts and you need to give the script some information.
+When the program runs, you will see a variety of prompts and you need to give the script some information.
 
-�Enter the dataset nickname: � (don�t use an underscore in the nickname _)  
-What you enter here doesn�t have an effect on how the program runs, it�s just a way of giving a name to the various output files that the pipeline generates. I generally use something informative and short. Like Trial0915 for a test run that I did on 15 September. It could also be the focal taxa or locality or whatever.
+Enter the dataset nickname:  (do not use an underscore in the nickname _)  
+What you enter here does not have an effect on how the program runs, it is just a way of giving a name to the various output files that the pipeline generates. I generally use something informative and short. Like Trial0915 for a test run that I did on 15 September. It could also be the focal taxa or locality or whatever.
 
 Parameter Settings
-�Minimum number of reads to call an allele (5):� 
-To generate the pseudo-reference genome, the pipeline calls �high confidence alleles� from clusters within an individual. This parameter sets the minimum number of reads you want for a cluster to be called an allele. If you�d like to use the default, type 5. If you�d like a more conservative p-rg, enter a higher number, if you�d like to be more liberal, enter a lower number.
+Minimum number of reads to call an allele (5): 
+To generate the pseudo-reference genome, the pipeline calls �high confidence alleles� from clusters within an individual. This parameter sets the minimum number of reads you want for a cluster to be called an allele. If you would like to use the default, type 5. If you would like a more conservative p-rg, enter a higher number, if you would like to be more liberal, enter a lower number.
 
-�Minimum % identity to call a locus (90):�
+Minimum % identity to call a locus (90):
 To generate the p-rg, the pipeline clusters the high-confidence alleles at a given percent identity (similarity). 90% seems to work pretty well. 
 
-�Minimum coverage for calling consensus in an individual (3):�
-Once all the reads have been blasted to the p-rg, VarScan calls a consensus sequence for each locus. Here you can set the minimum number of reads you�d like to call the consensus sequence. Higher values = more conservative. Lower values = more liberal.
+Minimum coverage for calling consensus in an individual (3):
+Once all the reads have been blasted to the p-rg, VarScan calls a consensus sequence for each locus. Here you can set the minimum number of reads you would like to call the consensus sequence. Higher values = more conservative. Lower values = more liberal.
 
-�Minimum coverage for calling a SNP (3):�
-VarScan also calls SNPs from the reads that blast to each locus. Here you can set the minimum number of reads that support a SNP for it to be called an actual variant. I wouldn�t go below 2, since you�d then be calling every SNP (aka every error) a real variant. 
+Minimum coverage for calling a SNP (3):
+VarScan also calls SNPs from the reads that blast to each locus. Here you can set the minimum number of reads that support a SNP for it to be called an actual variant. I would not go below 2, since you would then be calling every SNP (aka every error) a real variant. 
 
-�Minimum % of reads for calling a SNP (20):�
+Minimum % of reads for calling a SNP (20):
 In addition to a minimum raw number of reads being necessary for a SNP to be called, those reads must also represent a certain percentage of the coverage at that base. 20% seems pretty standard in the literature. Higher numbers will be more conservative and lower numbers will be more liberal.
 
 10. OUTPUT
 When the pipeline is finished running, there should be .fasta files in the calledAlleles folder corresponding to the loci in the p-rg. These should be viewable in any program that reads .fasta files.
-The �.counts.txt� file displays how many individuals were called for each locus. This can be opened in Excel and then sorted to show which loci contained all or most individuals (i.e. those of highest interest). 
-The �.HoHe.txt� file contains how many individuals, heterozygotes and alleles were called for each locus as well as the observed and expected heterozygosities. This file can also be opened directly by Excel.
-The �.ComputeOutput.txt� contains the output from the compute analyses. This can also be opened in Excel.
-The �MultiHitLoci.txt� contains information on where there are more than two base pairs for a given position on the reference genome within an individual. This is highly suspect, especially if more than two base pairs occur at high frequency (i.e., more than one of a given base). If more than one individual appears on the list for a single locus, that locus is almost definitely paralogous. It might even be wise to throw out every locus on the list, or rerun the analysis with higher cutoffs for calling a locus.
+The ".counts.txt" file displays how many individuals were called for each locus. This can be opened in Excel and then sorted to show which loci contained all or most individuals (i.e. those of highest interest). 
+The ".HoHe.txt" file contains how many individuals, heterozygotes and alleles were called for each locus as well as the observed and expected heterozygosities. This file can also be opened directly by Excel.
+The ".ComputeOutput.txt" contains the output from the compute analyses. This can also be opened in Excel.
+The "MultiHitLoci.txt" contains information on where there are more than two base pairs for a given position on the reference genome within an individual. This is highly suspect, especially if more than two base pairs occur at high frequency (i.e., more than one of a given base). If more than one individual appears on the list for a single locus, that locus is almost definitely paralogous. It might even be wise to throw out every locus on the list, or rerun the analysis with higher cutoffs for calling a locus.
 
 11. TEST DATA
 To run the test data, copy the three .fasta and three .qual files into the inputFASTA folder. Run PRGMATIC.pl. There should be a lot of output to the screen. In the zip file with the test data, I put the .counts.txt, .HoHe.txt, and .ComputeOutput.txt files that were generated on my machine. They should match the files you get.
 
 12. CONTACT
-Please feel free to contact me about any issues you�re having with PRGMATIC or the dependent software. I�d be more than happy to do what I can � 
+Please feel free to contact me about any issues you�re having with PRGMATIC or the dependent software. I�d be more than happy to do what I can
 Sarah Hird
 shird1@tigers.lsu.edu 
 
