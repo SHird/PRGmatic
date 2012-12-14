@@ -64,7 +64,7 @@ f. COMPUTE
 The compute package is more difficult to install than the other software. I recommend following the instructions at http://molpopgen.org/software/libsequence.html to get the necessary library (libsequence) and the instructions at http://molpopgen.org/software/lseqsoftware.html to get the analysis package (which contains compute). Once you have this installed, make a copy of the compute executable and put it in the PRGMATIC folder. This is optional software, so if it is not installed on your machine, PRGMATIC will still run, you just need to turn off the part of PRGMATIC.pl that calls compute. 
 
 4. TO TURN OFF THE COMPUTE ANALYSIS OR MUSCLE ALIGNMENT
-Open PRGMATIC.pl in a text editor. On line 74, it should say �multiCompute();�. Put a pound sign (#) in front of this line and save the file. That should effectively turn off calling the compute package and there should be no errors. To turn off the MUSCLE multi-sequence alignment, open the PRGmatic.pl in a text editor and put a pound sign (#) in from of line 
+Open PRGMATIC.pl in a text editor. On line 74, it should say "multiCompute();". Put a pound sign (#) in front of this line and save the file. That should effectively turn off calling the compute package and there should be no errors. To turn off the MUSCLE multi-sequence alignment, open the PRGmatic.pl in a text editor and put a pound sign (#) in from of line 
 73, which should read "muscleAlignments()". Save the file.
 5. PRGMATIC FOLDER
 In the PRGMATIC folder you should now have 10 things:
@@ -83,27 +83,26 @@ In the PRGMATIC folder you should now have 10 things:
 
 Inside the inputFASTA folder you should place your tag separated fasta files. 
 
-6. (MY PREFERRED METHOD FOR) GENERATING FASTA FILES � USING RDP WEBSITE
+6. (MY PREFERRED METHOD FOR) GENERATING FASTA FILES USING RDP WEBSITE
 Off the 454 machine, you should have gotten at least one .fna file, one .qual file and a folder of .sff files.  To quality control the reads, I use the Ribosomal Database Project�s Pyrosequencing Pipeline (at http://pyro.cme.msu.edu/ ). Their �Pipeline Initial Process� is easy to use, fast and on its own server, so there�s nothing to download. 
 
 RDP Pyrosequencing Pipeline Initial Process Parameters:
 Sequence file in FASTA format: (upload the .fna file here)
 Quality file in FASTA format (optional): (upload the .qual file here)
-Upload a tag file: (upload your tag file here � this is the file that says which tag sequence belongs to which individual. The format is very easy; on a new line for each individual: TagSequence (tab) IndividualName. **When you run the bigFastaRename.pl script to rename the files, the tag file will need to have UNIX line breaks.**)
+Upload a tag file: (upload your tag file here. This is the file that says which tag sequence belongs to which individual. The format is very easy; on a new line for each individual: TagSequence (tab) IndividualName. **When you run the bigFastaRename.pl script to rename the files, the tag file will need to have UNIX line breaks.**)
 Gene name: Other
 Forward Primers: (paste your forward primer here)
 Reverse Primers: (paste your reverse primer here)
 *FILTERS*
-Forward primer max edit distance (0 to 2): (this refers to how many errors you�ll allow in your forward primer sequence. I use 2 but if you�re being conservative, 0 or 1 will weed out more sequences.)
+Forward primer max edit distance (0 to 2): (this refers to how many errors you will allow in your forward primer sequence. I use 2 but if you are being conservative, 0 or 1 will weed out more sequences.)
 Reverse primer max edit distance (0 to 2): (same as above but for reverse primer. Again, I use 2.)
-Max number of N�s: 0 (I highly recommend using 0 here, since one ambiguous base can be indicative of error prone sequence. See Huse et al. (2007) for a good overview of 454 generated errors).
+Max number of Ns: 0 (I highly recommend using 0 here, since one ambiguous base can be indicative of error prone sequence. See Huse et al. (2007) for a good overview of 454 generated errors).
 Min sequence length (>=50): (I use either 100 or 150, depending on the dataset, but you can use whatever you deem appropriate. Shorter sequences are more error prone, but throwing out reads unnecessarily is suboptimal).
 Minimum Average Exp Quality Score: (20 is what I usually use. This corresponds to an average error rate of no more than 1/100 bases having an error (DOUBLE CHECK THIS). Higher number here results in fewer reads passing the filter with a higher quality score.)
 Keep primers: (Do not check)
 
-Click �Perform Initial Processing�
-
-This is generally very fast and I have my file downloading within 10 minutes (usually). It may take longer for big files. Once the file downloads, double click it and it will unpack a folder with your sequences separated by the names in the tag file. The files in these folders named �Individual_trimmed.fasta� and �Individual_trimmed.qual� can be used as input for the pipeline. I�ve included a script in the DependentSoftware folder (�bigFastaRename.pl�) that renames the sequences in these folders (and their associated quality scores) as IndividualName_00001, IndividualName_00002, etc. and puts them in files called IndividualName.fasta and IndividualName.qual.  Renaming the sequences makes them easier to view and understand later, when knowing which reads came from which individual is helpful. I highly recommend running bigFastaRename.pl but it is not necessary.
+Click "Perform Initial Processing"
+This is generally very fast and I have my file downloading within 10 minutes (usually). It may take longer for big files. Once the file downloads, double click it and it will unpack a folder with your sequences separated by the names in the tag file. The files in these folders named "Individual_trimmed.fasta" and "Individual_trimmed.qual" can be used as input for the pipeline. I have included a script in the DependentSoftware folder (bigFastaRename.pl)"that renames the sequences in these folders (and their associated quality scores) as IndividualName_00001, IndividualName_00002, etc. and puts them in files called IndividualName.fasta and IndividualName.qual.  Renaming the sequences makes them easier to view and understand later, when knowing which reads came from which individual is helpful. I highly recommend running bigFastaRename.pl but it is not necessary.
 
 7. TO RUN BIGFASTARENAME.PL:
 1. Copy or drag the file into the RDP downloaded folder. 
