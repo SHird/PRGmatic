@@ -50,14 +50,14 @@ Included is the 64-bit, MacOSX version of this program. To install CAP3, double-
 http://seq.cs.iastate.edu/cap3.html.
 
 c. MUSCLE
-Muscle is the sequence aligner for after the loci have been called. It is executable from the file included with PRGMATIC and shouldn�t require anything to make it run as long as it�s in the correct folder. You can double check that it is correctly installed if you type  "chmod 755 muscle3.8.31_i86darwin64" and then "/muscle3.8.31_i86darwin64� from a terminal window inside the PRGMATIC directory. The included version is for 64-bit Intel MacOSX machines � if you have different hardware or need to get an original copy, see http://www.drive5.com/muscle/.
+Muscle is the sequence aligner for after the loci have been called. It is executable from the file included with PRGMATIC and should not require anything to make it run as long as it is in the correct folder. You can double check that it is correctly installed if you type  "chmod 755 muscle3.8.31_i86darwin64" and then "/muscle3.8.31_i86darwin64" from a terminal window inside the PRGMATIC directory. The included version is for 64-bit Intel MacOSX machines - if you have different hardware or need to get an original copy, see http://www.drive5.com/muscle/.
 
 d. SAMTOOLS:
-Included is the MacOSX version, which should also work on some other platforms as well. To install, double click samtools-0.1.8.tar.bz2.  Open a terminal window and cd into samtools-0.1.8. Type �make� (without quotation marks). When this finishes, make a copy of the samtools executable and put the copy in the PRGMATIC folder. This is correctly installed if you double click the executable and a screen with a parameter list opens.  Also make a copy of samtools.pl from the misc folder and put that copy in the PRGMATIC folder. (samtools.pl is not an executable, so as long as it is in the correct folder, it is correctly �installed�.)
+Included is the MacOSX version, which should also work on some other platforms as well. To install, double click samtools-0.1.8.tar.bz2.  Open a terminal window and cd into samtools-0.1.8. Type "make" (without quotation marks). When this finishes, make a copy of the samtools executable and put the copy in the PRGMATIC folder. This is correctly installed if you double click the executable and a screen with a parameter list opens.  Also make a copy of samtools.pl from the misc folder and put that copy in the PRGMATIC folder. (samtools.pl is not an executable, so as long as it is in the correct folder, it is correctly installed.)
 http://sourceforge.net/projects/samtools/
 
 e. VARSCAN
-The included VarScan should already be installed upon downloading the PRGMATIC package.  You can check this by opening a terminal, cd into PRGMATIC and type �java �jar VarScan.v2.2.2.jar�. This is correctly installed if you see a screen with a parameter list.
+The included VarScan should already be installed upon downloading the PRGMATIC package.  You can check this by opening a terminal, cd into PRGMATIC and type "java -jar VarScan.v2.2.2.jar". This is correctly installed if you see a screen with a parameter list.
 http://varscan.sourceforge.net/
 
 f. COMPUTE
@@ -65,7 +65,7 @@ The compute package is more difficult to install than the other software. I reco
 
 4. TO TURN OFF THE COMPUTE ANALYSIS OR MUSCLE ALIGNMENT
 Open PRGMATIC.pl in a text editor. On line 74, it should say �multiCompute();�. Put a pound sign (#) in front of this line and save the file. That should effectively turn off calling the compute package and there should be no errors. To turn off the MUSCLE multi-sequence alignment, open the PRGmatic.pl in a text editor and put a pound sign (#) in from of line 
-73, which should read �muscleAlignments()�. Save the file.
+73, which should read "muscleAlignments()". Save the file.
 5. PRGMATIC FOLDER
 In the PRGMATIC folder you should now have 10 things:
 
