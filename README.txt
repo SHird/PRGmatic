@@ -84,7 +84,7 @@ In the PRGMATIC folder you should now have 10 things:
 Inside the inputFASTA folder you should place your tag separated fasta files. 
 
 6. (MY PREFERRED METHOD FOR) GENERATING FASTA FILES USING RDP WEBSITE
-Off the 454 machine, you should have gotten at least one .fna file, one .qual file and a folder of .sff files.  To quality control the reads, I use the Ribosomal Database Project's Pyrosequencing Pipeline (at http://pyro.cme.msu.edu/ ). Their Pipeline Initial Process is easy to use, fast and on its own server, so there�s nothing to download. 
+Off the 454 machine, you should have gotten at least one .fna file, one .qual file and a folder of .sff files.  To quality control the reads, I use the Ribosomal Database Project's Pyrosequencing Pipeline (at http://pyro.cme.msu.edu/ ). Their Pipeline Initial Process is easy to use, fast and on its own server, so there is nothing to download. 
 
 RDP Pyrosequencing Pipeline Initial Process Parameters:
 Sequence file in FASTA format: (upload the .fna file here)
@@ -126,7 +126,7 @@ What you enter here does not have an effect on how the program runs, it is just 
 
 Parameter Settings
 Minimum number of reads to call an allele (5): 
-To generate the pseudo-reference genome, the pipeline calls �high confidence alleles� from clusters within an individual. This parameter sets the minimum number of reads you want for a cluster to be called an allele. If you would like to use the default, type 5. If you would like a more conservative p-rg, enter a higher number, if you would like to be more liberal, enter a lower number.
+To generate the pseudo-reference genome, the pipeline calls "high confidence alleles" from clusters within an individual. This parameter sets the minimum number of reads you want for a cluster to be called an allele. If you would like to use the default, type 5. If you would like a more conservative p-rg, enter a higher number, if you would like to be more liberal, enter a lower number.
 
 Minimum % identity to call a locus (90):
 To generate the p-rg, the pipeline clusters the high-confidence alleles at a given percent identity (similarity). 90% seems to work pretty well. 
@@ -151,7 +151,7 @@ The "MultiHitLoci.txt" contains information on where there are more than two bas
 To run the test data, copy the three .fasta and three .qual files into the inputFASTA folder. Run PRGMATIC.pl. There should be a lot of output to the screen. In the zip file with the test data, I put the .counts.txt, .HoHe.txt, and .ComputeOutput.txt files that were generated on my machine. They should match the files you get.
 
 12. CONTACT
-Please feel free to contact me about any issues you�re having with PRGMATIC or the dependent software. I�d be more than happy to do what I can
+Please feel free to contact me about any issues you are having with PRGMATIC or the dependent software. I would be more than happy to do what I can
 Sarah Hird
 shird1@tigers.lsu.edu 
 
