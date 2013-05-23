@@ -179,5 +179,5 @@ Tablet:
 MILNE, I., BAYER, M., CARDLE, L., SHAW, P., STEPHEN, G., WRIGHT, F. & MARSHALL, D. 2009. Tablet - next generation sequence assembly visualization. Bioinformatics, 26, 2.
 
 
-Updated: 7 January 2011 by S. Hird
+Updated: 23 May 2013 by S. Hird
 
