@@ -1,5 +1,9 @@
 PRGmatic Change Log
 
+v1.7
+23 May 2013
+Added a user-defined parameter that sets the upper limit for the length of the sequence reads. This is important because a single read is supposed to be equivalent to single locus and loci that are longer than this parameter will be discarded. Having this parameter too high may allow contigs of reads to be made. If your 454 reads are on average 650 bases and the longest is 720, set this parameter to 720 (or so). 
+
 v1.6
 15 August 2011
 Reformatted the way muscle aligned loci are saved: instead of "_aln.fasta" files now end with ".aln.fasta". The loci in the PRG have also been reformatted such that the last piece of information in the locus name is now the dataset nickname_locusNumber, instead of just the locus number. Example: old locus name/header = ">gi|321|fakeDataset|1"
