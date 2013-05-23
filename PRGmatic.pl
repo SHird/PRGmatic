@@ -1,8 +1,8 @@
 #!/usr/bin/perl 
 use strict;
 use warnings;
-#S.Hird 08/08/2011
-#PRGmatic.v1.6
+#S.Hird 1 May 2013
+#PRGmatic.v1.7
 
 
 #PRGmatic: an efficient pipeline for collating NGS data
@@ -55,12 +55,12 @@ print "Minimum % of reads for calling SNP (20): ";
 $params[4] = <STDIN>;
 print SETTINGS "Minimum % of reads for calling SNP (20): $params[4]";
 
+print "Number of bases in longest expected locus/upper limit in length of sequence reads (700): ";
+$params[6] = <STDIN>;
+print SETTINGS "Number of bases in longest expected locus/upper limit in length of sequence reads (700): $params[6]";
+my $maxLocus = $params[6] + 20;
+
 chomp @params;
-
-#foreach (@params){
-#	print "$_ \n";
-#	}
-
 
 ####read in fasta files
 
@@ -174,7 +174,7 @@ for my $j (0..$#names){
     	chomp;
     	if (/^CO/){ # finds the line with contig info
 			m/CO\s+\S+\s+(\d+)\s+(\d+)\s+\d+/;
-			if ($1 < 700 && $2 >= $params[0]){
+			if ($1 < $maxLocus && $2 >= $params[0]){
 			   # print "$_";
 			    my @split = split(/ /, $_);
 			    push (@goodContigNames, ("$split[1]"."_$names[$j]")) ;
@@ -511,7 +511,7 @@ print "num rows $#PTableAoA\n";
 	}
 	if ($multiHits >2) {
 		open MHL, ">>", "MultiHitLoci.txt" or die "Can't open MultiHitLoci.txt";
-		print MHL "Individual $nameForWrite at locus $PTableAoA[$i][0] has >2 bp at position $PTableAoA[$i][1]\n";
+		print MHL "Individual $nameForWrite at locus $PTableAoA[$i][0] has >2 bp at position $PTableAoA[$i][1]; consensus $PTableAoA[$i][2] = $PTableAoA[$i][3], A = $PTableAoA[$i][4], C = $PTableAoA[$i][5], G = $PTableAoA[$i][6], T = $PTableAoA[$i][7], - = $PTableAoA[$i][8]; totalSNP = ($PTableAoA[$i][8]+$PTableAoA[$i][4]+$PTableAoA[$i][5]+$PTableAoA[$i][6]+$PTableAoA[$i][7]) \n";
 		close MHL;
 	}
 	
@@ -926,4 +926,6 @@ foreach my $f (@allFilesAL){
 	
 	
 }#close multiCompute
+
+
 
