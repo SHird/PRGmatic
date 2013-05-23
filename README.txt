@@ -140,6 +140,9 @@ VarScan also calls SNPs from the reads that blast to each locus. Here you can se
 Minimum % of reads for calling a SNP (20):
 In addition to a minimum raw number of reads being necessary for a SNP to be called, those reads must also represent a certain percentage of the coverage at that base. 20% seems pretty standard in the literature. Higher numbers will be more conservative and lower numbers will be more liberal.
 
+Number of bases in longest expected locus/upper limit in length of sequence reads (700):
+This puts an upper limit on the size of the contigs the program will use in the p-rg; contigs larger than this value will be discarded (which is good if you know the length of your fragments and have use a molecular methods such that each read is a single locus). PRGmatic adds 20 to this value, just to be safe.
+
 10. OUTPUT
 When the pipeline is finished running, there should be .fasta files in the calledAlleles folder corresponding to the loci in the p-rg. These should be viewable in any program that reads .fasta files.
 The ".counts.txt" file displays how many individuals were called for each locus. This can be opened in Excel and then sorted to show which loci contained all or most individuals (i.e. those of highest interest). 
